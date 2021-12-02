@@ -1,7 +1,7 @@
 # UIViewController Life Cycle
 
 When subclassing UIViewController, all of the life cycle methods are inherited. Each of the life cycle methods below are called automatically by the system. 
-Calling `super.` will give access to all of the features that Apple intended for each method. 
+When overriding a life cycle method, calling `super.` will allow the original version of the method to be called and do its setup prior to the overridden method's call. While it may not always be necessary, not calling '`super.` may cause unwanted bugs.
 
 ```swift
 func viewDidLoad()
@@ -33,7 +33,7 @@ func viewWillLayoutSubviews()
 func viewDidLayoutSubviews()
 ```
 
-
+`viewDidLayoutSubviews()` is the method to use for any and all geometry dependent changes.
 
 
 
