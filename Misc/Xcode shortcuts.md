@@ -11,3 +11,5 @@
 `ctrl+cmd+left/right arrow` - move back and forth between most recent interacted files/lines of code
 
 `cmd+n` - add new file
+
+`shift+cmd+a` - toggle between light/dark mode
