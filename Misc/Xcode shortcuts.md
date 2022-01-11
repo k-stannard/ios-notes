@@ -13,3 +13,5 @@
 `cmd+n` - add new file
 
 `shift+cmd+a` - toggle between light/dark mode
+
+`ctrl+cmd+left click` - jump to method declaration
