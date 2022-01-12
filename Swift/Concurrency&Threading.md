@@ -45,3 +45,8 @@ Concurrent queues operate faster, but are unpredictable. May cause race conditio
 ## What are race conditions?
 
 A race condition occurs when two or more threads have access to shared data, and try to make changes to that data at the same time. Due to the way concurrenct queues work, you won't know when a thread will be finished with the data. The threads are 'racing' to use the shared data. In order to prevent race conditions, you can implement locks and semaphores.
+
+## Notes
+
+[iOS Concurrency & Threading - Sean Allen](https://www.youtube.com/watch?v=iTcq6L-PaDQ)
+[What is a race condition - StackOverflow](https://stackoverflow.com/questions/34510/what-is-a-race-condition)
