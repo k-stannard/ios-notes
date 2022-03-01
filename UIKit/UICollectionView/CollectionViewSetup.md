@@ -78,3 +78,16 @@ item.contentInsets = .init(top: CGFloat, leading: CGFloat, bottom: CGFloat, trai
 By initializing a value of 5 to each side of the item, the view adjusts each item to have a spacing of 5 points:    
 
 <img width="273" alt="Screen Shot 2022-02-09 at 9 31 08 PM" src="https://user-images.githubusercontent.com/21287326/153331929-9c1df052-d6e4-4d12-9ec8-da385d9ca02a.png">
+
+## Diffable Datasource Snapshot
+
+What makes the diffable data source is the snapshot. The snapshot is a representation of the state of the data in a view at a specific point in time. 
+To use the snapshot, initialize the snapshot, populate it with data, and apply the snapshot to the collection view's data source.
+
+```swift
+var snapshot = NSDiffableDataSource<Section, Int>()
+snapshot.appendSections([.main])
+snapshot.appendItems(Array(0...100))
+dataSource.apply(snapshot, animatingDifferences: true)
+```
+
