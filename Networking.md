@@ -26,5 +26,5 @@ The result type allows you to easily return back success/failure networking requ
 ## Notes
 
 [Examples of JSON conversion](https://github.com/jrasmusson/level-up-swift/blob/master/11-JSON/1-json.md)  
-[HTTP in Swift](https://davedelong.com/blog/2020/06/27/http-in-swift-part-1/)
+[HTTP in Swift](https://davedelong.com/blog/2020/06/27/http-in-swift-part-1/)  
 [JSON Parsing in Swift | Swiftlee.com](https://www.avanderlee.com/swift/json-parsing-decoding/)
