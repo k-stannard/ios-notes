@@ -37,3 +37,24 @@ var body: some View {
 
 Note: As of iOS 15, a Form will only allow up to 10 children due to the limitations of SwiftUI. This does not only apply to forms, but to all of SwiftUI. To work around this limitation, you can wrap things using `Group` to add more children to a view. Visually, there is no difference - it will still look like one complete form. If you want to split things up visually into their own groups, use `Section` instead.
 
+## Navigation Bar
+
+To add a navigation bar in SwiftUI, all you need to do is wrap the content inside of body with a `NavigationView` view.
+
+```swift
+var body: some View {
+    NavigationView {
+        Form {
+            Section {
+                Text("Hello, world!")
+                Text("Hello, world!")
+            }
+        }
+    }
+}
+```
+
+To add a title, use the `.navigationTitle(title: Text)` method. It will default to large titles.  
+If you want to change the display mode of the title, for perhaps a smaller title, use the `.navigationBarTitleDisplayMode(displayMode: NavigationBarItem.TitleDisplayMode)` method. The three options for this method are large, inline, and automatic.
+
+
