@@ -10,4 +10,30 @@ There is a computed property by default, named `body`, which returns type `some 
 
 Inside of body contains a text property containing "Hello, World" text and a method called `.padding()`, otherwise known as a `modifier` in SwiftUI.
 
-The ContentView_Previews struct conforms to a `PreviewProvider` protocol. This struct is used for the purposes of designing, debugging, etc. within xcode and is not required for the final product of an app. 
+The ContentView_Previews struct conforms to a `PreviewProvider` protocol. This struct is used for the purposes of designing, debugging, etc. within xcode and is not required for the final product of an app.
+
+### Lists
+
+Lists can be created in SwiftUI by using the view type `Form`.  
+```swift
+var body: some View {
+    Form {
+        Text("Hello, world!")
+    }
+}
+```
+
+By default, the text will be placed in the top left corner of the the screen. You can add more rows to the list by adding more text to the next line.  
+```swift
+var body: some View {
+    Form {
+        Text("Hello, world!")
+	Text("Hello, world!")
+	Text("Hello, world!")
+	Text("Hello, world!")
+    }
+}
+```
+
+Note: As of iOS 15, a Form will only allow up to 10 children due to the limitations of SwiftUI. This does not only apply to forms, but to all of SwiftUI. To work around this limitation, you can wrap things using `Group` to add more children to a view. Visually, there is no difference - it will still look like one complete form. If you want to split things up visually into their own groups, use `Section` instead.
+
