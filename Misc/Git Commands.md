@@ -6,7 +6,9 @@
 
 `git add -p` - add files, but pan through each change & determine what to do at each point
 
-`git commit -m "commit message here"` - commit changes with a message
+`git commit -m "commit message here"` - commit changes with a message  
+
+`git remote add origin <remote_repo_URL>` - link remote repository to local repository
 
 ## Pushing a change to a remote repository
 
