@@ -25,6 +25,13 @@
 
 `git checkout -b <branchname> ` 
 
+## Branch Merging
+
+To merge a branch back into main:  
+1. Checkout the main branch
+2. Type `git merge <branch name>`
+3. Push to remote repository if needed.  
+
 ## Reset a branch
 
 If you accidentally commited a change that you didn't want, you can erase that commit by doing the following:  
