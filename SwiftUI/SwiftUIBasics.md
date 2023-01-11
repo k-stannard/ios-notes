@@ -14,10 +14,10 @@ The ContentView_Previews struct conforms to a `PreviewProvider` protocol. This s
 
 ### Lists
 
-Lists can be created in SwiftUI by using the view type `Form`.  
+Lists can be created in SwiftUI by using the view type `List`.  
 ```swift
 var body: some View {
-    Form {
+    List {
         Text("Hello, world!")
     }
 }
@@ -26,16 +26,17 @@ var body: some View {
 By default, the text will be placed in the top left corner of the the screen. You can add more rows to the list by adding more text to the next line.  
 ```swift
 var body: some View {
-    Form {
+    List {
         Text("Hello, world!")
-	Text("Hello, world!")
 	Text("Hello, world!")
 	Text("Hello, world!")
     }
 }
 ```
 
-Note: As of iOS 15, a Form will only allow up to 10 children due to the limitations of SwiftUI. This does not only apply to forms, but to all of SwiftUI. To work around this limitation, you can wrap things using `Group` to add more children to a view. Visually, there is no difference - it will still look like one complete form. If you want to split things up visually into their own groups, use `Section` instead.
+Note: As of iOS 15, a List will only allow up to 10 children due to the limitations of SwiftUI. This does not only apply to forms, but to all of SwiftUI. To work around this limitation, you can wrap things using `Group` to add more children to a view. Visually, there is no difference - it will still look like one complete List. If you want to split things up visually into their own groups, use `Section` instead.
+
+You may also use `Form` as a list. They're both nearly the same, use UITableView under the hood. Use Form for data entry incase Apple decides to change things in the future.
 
 ## Navigation Bar
 
@@ -57,4 +58,56 @@ var body: some View {
 To add a title, use the `.navigationTitle(title: Text)` method. It will default to large titles.  
 If you want to change the display mode of the title, for perhaps a smaller title, use the `.navigationBarTitleDisplayMode(displayMode: NavigationBarItem.TitleDisplayMode)` method. The three options for this method are large, inline, and automatic.
 
+Note: If the SwiftUI Preview isn't showing the title, simply embed a NavigationView inside of the Content Preview struct.
+```swift
+struct Content_Previews: PreviewProvider {
+    static var previews: some View {
+    	NavigationView {
+            ContentView()
+	}
+    }
+}
+```
 
+## Buttons
+
+```swift
+Button("Button label here") {
+    // Button action here
+}
+```
+
+### Dismiss views with a button
+
+Create an environment variable, then insert it into the buttons action.
+```swift
+
+@Environment(\.dismiss) private var dismiss
+
+Button("Done") {
+    dismiss()
+}
+```
+
+## TextFields
+
+```swift
+TextField("Placeholder text", text: -insert binding variable here-)
+// You can use .constant("") to temporarily leave text blank
+```
+
+## Navigation Toolbars
+
+```swift 
+    var body: some View {
+        Form {
+	    Text("Hello, world")
+        }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                // Toolbar Item goes here
+            }
+        }
+    }
+}
+```
