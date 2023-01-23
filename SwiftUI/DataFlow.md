@@ -153,3 +153,139 @@ struct NewFeatureView: View {
 ```
 
 Note: you have to inject the environment object into the preview provider to prevent swift previews from crashing.
+
+### @StateObject
+
+`@StateObject` allows you to have a single instance of your source of truth that your views can reference and read from. In order to use the `@StateObject` wrapper, you need to make sure you're using a class that is conforming to `ObservableObject`.
+
+Example:
+```swift
+struct LoginContentView: View {
+    
+    @StateObject private var viewModel = LoginViewModel()
+    
+    var body: some View {
+        switch viewModel.currentState {
+        case .loading:
+            ProgressView()
+        case .loggedOut:
+            LoginView(user: $viewModel.user) {
+                viewModel.login()
+            }
+        case .loggedIn:
+            LoggedInView {
+                viewModel.logout()
+            }
+        }
+    }
+}
+
+struct User: Equatable {
+    
+    var username: String = ""
+    var password: String = ""
+    
+    mutating func reset() {
+        username = ""
+        password = ""
+    }
+}
+
+final class LoginViewModel: ObservableObject {
+    
+    enum CurrentState {
+        case loading
+        case loggedOut
+        case loggedIn
+    }
+    
+    @Published var user: User = .init()
+    @Published var currentState: CurrentState = .loggedOut
+    
+    func login() {
+        guard !user.username.isEmpty && !user.password.isEmpty else {
+            return
+        }
+        
+        currentState = .loading
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+            self?.currentState = .loggedIn
+        }
+    }
+    
+    func logout() {
+        self.currentState = .loggedOut
+        self.user.reset()
+    }
+}
+```
+
+### @StateObject vs @ObservedObject vs @EnvironmentObject
+
+#### @State Object
+
+A `@StateObject` is an object that allows you to create your own custom source of truth that can be observed. When a `@StateObject` is created, only one instance of itself. When a view is revalidated, a state object won't be recreated.  
+
+```swift
+// 1. Observable object defined
+class PeopleViewModel: ObservableObject {
+    @Published var people: [String] = []
+}
+
+struct ContentView: View {
+    // 2. Source of truth instance created in relevant view
+    @StateObject private var viewModel = PeopleViewModel()
+    
+    var body: some View {
+        // 3. Read from source of truth and reflect changes in UI
+        Text("Number of people: \(viewModel.people.count)
+    }
+}
+```
+When to use a `@StateObject`?  
+1. If you're building a source of truth that is only needed for that single view, ie: if you had a view model for executing requests that are only related to that view.
+2. If you're building a source of truth that will be used at the root of your application.
+3. As a general rule of thumb, if you want to create an instance of your observable object you want wrap it with `@StateObject`.
+
+#### @ObservedObject
+
+The `@ObservedObject` wrapper can be used to create an instance of your observable object. The `@ObservedObject` allows you to pass your observable object between different views, ie: passing an object from a parent view to a child view. It is advised that you do not use this wrapper unless you need to support an app using an iOS version below 14.0. 
+
+```swift
+// 1. Observable object defined
+class PeopleViewModel: ObservableObject {
+    @Published var people: [String] = []
+}
+
+struct ContentView: View {
+    // 2. Source of truth instance created in relevant view
+    @StateObject private var viewModel = PeopleViewModel()
+    
+    var body: some View {
+        // 3. Inject source of truth to a child view
+        PeopleView(viewModel: viewModel)
+    }
+}
+
+struct PeopleView: View {
+    
+    // 4. Property wrapper to receive & accept source of truth from parent view
+    @ObservedObject var viewModel: PeopleViewModel
+    
+    var body: some View {
+        // 5. Read source of truth & update UI
+        Text("Number of people: \(viewModel.people.count)")
+    }
+}
+```
+
+When to use `@ObservedObject`?
+1. If you have a child view which needs access to a state object that is isolated to that one single view, you can pass it down using an observable object.
+2. If you need to create an instance of your observable object on iOS 13 - which is the only time you should use this.
+
+#### @EnvironmentObject 
+
+When to use `@EnvironmentObject`?
+
+Similar to `@ObservedObject`, an `@EnvironmentObject` is used when you need to access a source of truth at the root level of an application, where each screen needs access to the source of truth, and if a child view of a parent view needs access to the root level object.
