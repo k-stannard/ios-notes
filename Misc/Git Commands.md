@@ -10,6 +10,8 @@
 
 `git remote add origin <remote_repo_URL>` - link remote repository to local repository
 
+`git commit --amend` - edit the commit message of your last commit
+
 ## Pushing a change to a remote repository
 
 `git push --set-upstream origin <branchname>` - creates an upstream channel to push changes to the remote
@@ -46,6 +48,7 @@ If you have a series of commits you'd like to combine into a previous commit, yo
 
 1. Type `git log` and copy the hash key that is *just beneath* the commit you want to rebase into.
 2. Type `git rebase -i <hash key>` to enter into the git interactive rebase file
+  - alternatively, you can type `git rebase -i HEAD~<# of commits to be rebased>`.
 3. Determine which commits you want to squash, and change `pick` to `s` on each line that is to be squashed.
 4. Once changes are saved, the next step is to clean up the commit messages.
 - The commit you are rebasing into will be at the top, and the squashed commit messages will be below it. Simply remove what you don't want and save the changes.
@@ -60,4 +63,3 @@ Rebase will take your changes vs the repository you want to merge to and place y
 ## Pull Requests
 
 Pull requests are how your changes are merged with other team members and commited to the repository that represents the project.  
-
