@@ -15,6 +15,8 @@ Codable is a combination of the old decoupled Decodable/Encodable protocols from
 
 If the keys coming from the JSON data aren't exactly what you want, you can use the CodingKeys enum to set your own property names. For example, if the JSON coming in is using snake casing, CodingKeys will allow you to convert the snake case into camel casing.
 
+Alternatively, you can now use `JSONDecoder().keyDecodingStrategy = .convertFromSnakeCase` to convert snake case into camel case
+
 ## URLSession
 
 URLSession's dataTask method is what's most commonly used to fetch data from the net. The dataTask will return an optional data, response, and error in the completion block to use for decoding and error handling.
